@@ -4,11 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wedding Nurul & Nurfajri</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
 </head>
 <body>
-    <video width="800" controls autoplay loop>
+    <video id="weddingVideo" controls autoplay loop>
         <source src="nurul-nurfajri.mp4" type="video/mp4">
         Browser Anda tidak mendukung tag video.
     </video>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let video = document.getElementById("weddingVideo");
+
+            // Memasukkan video ke fullscreen saat halaman dimuat
+            video.requestFullscreen().catch(err => {
+                console.log("Fullscreen tidak didukung:", err);
+            });
+
+            // Memainkan video saat fullscreen aktif
+            video.play();
+        });
+    </script>
 </body>
 </html>
