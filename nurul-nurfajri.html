@@ -4,11 +4,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wedding Nurul and Nurfajri</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: black;
+            color: white;
+        }
+        #video-container {
+            display: none;
+        }
+        #start-button, #exit-fullscreen {
+            background-color: #ff4081;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        #exit-fullscreen {
+            display: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+    </style>
 </head>
 <body>
-    <video width="800" controls autoplay loop>
-        <source src="nurul-nurfajri.mp4" type="video/mp4">
-        Browser Anda tidak mendukung tag video.
-    </video>
+
+    <button id="start-button">Mulai</button>
+
+    <div id="video-container">
+        <video id="wedding-video" width="800" controls autoplay loop>
+            <source src="nurul-nurfajri.mp4" type="video/mp4">
+            Browser Anda tidak mendukung tag video.
+        </video>
+        <button id="exit-fullscreen">Keluar Fullscreen</button>
+    </div>
+
+    <script>
+        const startButton = document.getElementById("start-button");
+        const videoContainer = document.getElementById("video-container");
+        const video = document.getElementById("wedding-video");
+        const exitFullscreenButton = document.getElementById("exit-fullscreen");
+
+        startButton.addEventListener("click", () => {
+            startButton.style.display = "none";
+            videoContainer.style.display = "block";
+            video.play();
+
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.mozRequestFullScreen) {
+                video.mozRequestFullScreen();
+            } else if (video.webkitRequestFullscreen) {
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) {
+                video.msRequestFullscreen();
+            }
+        });
+
+        video.addEventListener("pause", () => {
+            exitFullscreenButton.style.display = "block";
+        });
+
+        video.addEventListener("play", () => {
+            exitFullscreenButton.style.display = "none";
+        });
+
+        exitFullscreenButton.addEventListener("click", () => {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+            exitFullscreenButton.style.display = "none";
+        });
+    </script>
+
 </body>
 </html>
